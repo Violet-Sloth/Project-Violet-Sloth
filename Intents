@@ -1,0 +1,83 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.MoreIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PauseIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.PreviousIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.RepeatIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.ResumeIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StartOverIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "WordOfDay",
+      "samples": [
+        "What is the word of the day",
+        "what tell me a new word",
+        "teach me a word",
+        "tell me a word",
+        "say a new word",
+        "tell me a phrase",
+        "what is today's word",
+        "what is today's phrase",
+        "say a sentence",
+        "say the word in a sentence",
+        "give me a word",
+        "what's new today"
+      ],
+      "slots": []
+    }
+  ],
+  "types": [
+    {
+      "name": "learning_language",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "Spanish",
+            "synonyms": [
+              "Espanol"
+            ]
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "Arabic",
+            "synonyms": [
+              "Farsi"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
