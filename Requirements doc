@@ -1,0 +1,45 @@
+Requirements: A Requirements Document
+=====================================
+
+
+1. Overall goals
+----------------
+
+Our goal: Create a TLO Alexa skill. It will give the Word of the Day in a given language to the user, and potentially we will be adding additional abilities as well. 
+ 
+Why: Initially we are starting this as a side project for fun, but it may expand beyond this in the future. 
+
+Use cases: Users of Alexa-enabled devices can install this as a way to practice learning a language. Could be used in conjunction with our program as well. 
+
+Perhaps more importantly, what are we choosing *not* to do?
+
+What we are NOT doing: TBD
+
+
+2. Background and technical assumptions
+---------------------------------------
+
+Platforms: Linux
+
+Programming Language: Python
+
+Services: AWS Lambda, DynamoDB, S3
+
+4. User stories
+---------------
+
+User Story: Alexa Echo User
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A user has installed the skill to aid with their learning. After Alexa discerns their preferred learning language, they ask Alexa for the word of the day and learn its meaning.
+
+
+5. Questions
+------------
+
+none yet
+
+6. Saying no
+------------
+
+-Don’t direct user to a webpage to view supported languages
+-Don’t keep all data for all sound files in our database (expense will be prohibitive)
