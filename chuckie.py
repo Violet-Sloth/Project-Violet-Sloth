@@ -10,13 +10,13 @@ wotdOptions = {
 }
 
 def lambda_handler(event, context):
-    wotd = random.choice(list(wotdOptions.values()))
+    wotd = '<speak>' + random.choice(list(wotdOptions.values())) + '<audio src="https://www.jovo.tech/audio/oCPbFrRY-00122-arabic-wotd-words.mp3"/></speak>'
     response = {
         'version': '1.0',
         'response': {
             'outputSpeech': {
-                'type': 'PlainText',
-                'text': wotd
+                'type': 'SSML',
+                'ssml' : wotd
             }
         }
     }
