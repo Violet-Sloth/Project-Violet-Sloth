@@ -1,16 +1,17 @@
 import random
+import boto3
 
-wotdOptions = {
-    "Spanish": "Hola",
-    "French": "Bonjour",
-    "English": "Hello",
-    "Texan": "Howdy",
-    "Chinese": "Ni Hao",
-    "Japanese": "Konichiwa"
-}
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('wotd')
 
 def lambda_handler(event, context):
-    wotd = '<speak>' + random.choice(list(wotdOptions.values())) + '<audio src="https://www.jovo.tech/audio/oCPbFrRY-00122-arabic-wotd-words.mp3"/></speak>'
+    word = table.get_item(
+        Key={
+            'language': 'spanish',
+            'id': random.randrange(1, 697)
+        }
+    )
+    wotd = '<speak>' + word["Item"]["word"] + ' which means ' + word["Item"]["word_translation"] + ' and sounds like <audio src="' + word["Item"]["word_sound"] + '"/></speak>'
     response = {
         'version': '1.0',
         'response': {
