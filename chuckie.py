@@ -1,23 +1,23 @@
-import random
 import boto3
+from boto3.dynamodb.conditions import Key
+import os
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('wotd')
 
 def lambda_handler(event, context):
-    word = table.get_item(
-        Key={
-            'language': 'spanish',
-            'id': random.randrange(1, 697)
-        }
+    wotd = table.query(
+        IndexName='language-word-index',
+        KeyConditionExpression=Key('language').eq('spanish') & Key('word').eq(os.environ['word'])
     )
-    wotd = '<speak>' + word["Item"]["word"] + ' which means ' + word["Item"]["word_translation"] + ' and sounds like <audio src="' + word["Item"]["word_sound"] + '"/></speak>'
+    item = wotd["Items"]
+    parsed = '<speak>The word of the day is <audio src="' + item[0]["word_sound"] + '"/> which means ' + item[0]["word_translation"] + '</speak>'
     response = {
         'version': '1.0',
         'response': {
             'outputSpeech': {
                 'type': 'SSML',
-                'ssml' : wotd
+                'ssml' : parsed
             }
         }
     }
