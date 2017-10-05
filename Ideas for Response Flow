@@ -35,3 +35,19 @@ Alexa: "To get the word of day, you can say 'Chuckie, say the word of the day in
 
 	Goodbye //This is optional - we may not need this
 	Alexa: "Goodbye, come back tomorrow."
+
+
+*foo*
+**foo**
+`foo`
+```python
+def function():
+	print("wut")
+```
+* 1
+* 2
+* 3
+
+1. a
+1. b
+1. c
