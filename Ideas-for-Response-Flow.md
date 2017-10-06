@@ -12,7 +12,7 @@ Introduction (1st time skill has been initiated)
 
 **Speaker:** Yes
 
-**Alexa:** "Hola mis amigos" *sentence audio file plays* This means "Hello my friends" Would you like to hear the word of the day in a different language?"
+**Alexa:** "Hola mis amigos" *sentence audio file plays* This means "Hello my friends" Would you like to hear another word of the day in a different language?"
 
 **Speaker:** Yes
 
@@ -20,7 +20,7 @@ Introduction (1st time skill has been initiated)
 
 **Speaker:** Klingon
 
-**Alexa:** "Sorry, I don't know that language yet. Would you like to hear one from `random` *unused language* language?"
+**Alexa:** "Sorry, I don't know that language yet. Would you like to hear one from `random unused language` language?"
 
 **Speaker:** Help!
 
@@ -56,7 +56,7 @@ Repeated Use
 
 **Speaker:** Yes.
 
-**Alexa:** "As salaam alaikum" *sentence audio file plays* This means "Peace be upon you." Would you like to hear the word of the day in a different language?"
+**Alexa:** "As salaam alaikum" *sentence audio file plays* This means "Peace be upon you." Would you like to hear another word of the day in a different language?"
 
 **Speaker:** No.
 
