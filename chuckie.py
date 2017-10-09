@@ -11,13 +11,13 @@ def lambda_handler(event, context):
         KeyConditionExpression=Key('language').eq('spanish') & Key('word').eq(os.environ['word'])
     )
     item = wotd["Items"]
-    parsed = '<speak>The word of the day is <audio src="' + item[0]["word_sound"] + '"/> which means ' + item[0]["word_translation"] + '</speak>'
+    outputSpeech = '<speak>The word of the day is <audio src="' + item[0]["word_sound"] + '"/> which means ' + item[0]["word_translation"] + '</speak>'
     response = {
         'version': '1.0',
         'response': {
             'outputSpeech': {
                 'type': 'SSML',
-                'ssml' : parsed
+                'ssml' : outputSpeech
             }
         }
     }
