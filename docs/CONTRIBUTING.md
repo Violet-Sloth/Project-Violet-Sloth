@@ -1,0 +1,1 @@
+Thank you for considering contributing to the project. Right now we are limiting contributions to a small group until the project gains a firmer footing. Once the project is established, we will offer guidelines for contributions.
