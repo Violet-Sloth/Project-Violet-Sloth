@@ -16,7 +16,7 @@ def lambda_handler(event, context):
 	#Locate today's WOTD in database- must run query to find ID. Set result to wordID
 	dbQuery =  wotdDB.query(
 		TableName='wotd',
-        IndexName='language-word-index',
+                IndexName='language-word-index',
 		ExpressionAttributeNames={"#L":"language"},
 		ExpressionAttributeValues={":lang":{"S":"spanish"},":word":{"S":soup.word.get_text()}},
 		KeyConditionExpression="#L = :lang AND word = :word"
