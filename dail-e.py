@@ -1,13 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 import boto3
+from datetime import datetime, date
 
 #Establish connection to Database
 wotdDB = boto3.client('dynamodb')
 
 #Lambda Handler function
 def lambda_handler(event, context):
-	#Scrape WOTD XML Feed for Today's word
+	#Scrap WOTD XML Feed for Today's word
 	response  = requests.get("https://wotd.transparent.com/rss/es-widget.xml")
 	data = response.text
 	soup = BeautifulSoup(data, "xml")
@@ -15,24 +16,28 @@ def lambda_handler(event, context):
 	#Locate today's WOTD in database- must run query to find ID. Set result to wordID
 	dbQuery =  wotdDB.query(
 		TableName='wotd',
-        	IndexName='language-word-index',
+        IndexName='language-word-index',
 		ExpressionAttributeNames={"#L":"language"},
 		ExpressionAttributeValues={":lang":{"S":"spanish"},":word":{"S":soup.word.get_text()}},
-        	KeyConditionExpression="#L = :lang AND word = :word"
+		KeyConditionExpression="#L = :lang AND word = :word"
     )
 	wordID = dbQuery['Items'][0]['id']['N']
 
 	#Set today's Word of the Day to active
 	dbUpdater = wotdDB.update_item(
 		ExpressionAttributeNames={
-			'#IA': 'isActive',
+			'#IA': 'isActive'
 		},
 		ExpressionAttributeValues={
 			':ia':{
 			'BOOL': True,
 			},
+			':LA':{
+			'S': date.strftime(datetime.utcnow(),"%Y-%m-%d"),
+			},
 		},
 		TableName='wotd',
+		ReturnValues='ALL_NEW',
 		Key={
 			"language": {
 				"S": 'spanish'
@@ -41,7 +46,7 @@ def lambda_handler(event, context):
 				"N": wordID
 			},
 		},
-		UpdateExpression='SET #IA=:ia'
+		UpdateExpression='SET #IA=:ia, lastActive=:LA'
 	)
 
 	#Find any other active WOTD items that are not today's word
@@ -49,13 +54,13 @@ def lambda_handler(event, context):
 		TableName='wotd',
 		ExpressionAttributeNames={"#L":"language"},
 		ExpressionAttributeValues={":lang":{"S":"spanish"},":idVal":{"N":"0"},":isActiveVal":{"BOOL":True},":word":{"S":soup.word.get_text()}},
-        	KeyConditionExpression="#L = :lang AND id > :idVal",
+		KeyConditionExpression="#L = :lang AND id > :idVal",
 		FilterExpression="isActive = :isActiveVal AND word <> :word"
     )
 
 	#Loop through items that are not supposed to be active and set to inactive
 	for item in dbFindActive['Items']:
-		dbUpdater = wotdDB.update_item(
+		dbSetInactive = wotdDB.update_item(
 			ExpressionAttributeNames={
 				'#IA': 'isActive',
 			},
@@ -75,5 +80,5 @@ def lambda_handler(event, context):
 			},
 			UpdateExpression='SET #IA=:ia'
 		)
-	
+
 	return dbUpdater
