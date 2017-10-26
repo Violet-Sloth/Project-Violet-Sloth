@@ -2,4 +2,4 @@
 * Add repeat intent
 * Add slot for changing language
 * Support user recognition by voice
-* Add sample sentence to Alexa's answer
+* ~Add sample sentence to Alexa's answer~
