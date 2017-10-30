@@ -2,82 +2,142 @@
   "intents": [
     {
       "name": "AMAZON.CancelIntent",
-      "samples": []
+      "samples": [
+        "Nevermind",
+        "Don't do that",
+        "Forget it"
+      ]
     },
     {
       "name": "AMAZON.HelpIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.MoreIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.PauseIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.PreviousIntent",
-      "samples": []
+      "samples": [
+        "Help",
+        "How do I use this",
+        "Help me",
+        "Please explain ",
+        "Tell me how to use this"
+      ]
     },
     {
       "name": "AMAZON.RepeatIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.ResumeIntent",
-      "samples": []
-    },
-    {
-      "name": "AMAZON.StartOverIntent",
-      "samples": []
+      "samples": [
+        "Can you say that again",
+        "What was the word of the day again",
+        "Repeat that",
+        "What is it again",
+        "Say again",
+        "Repeat"
+      ]
     },
     {
       "name": "AMAZON.StopIntent",
-      "samples": []
+      "samples": [
+        "Stop",
+        "Quit",
+        "Go away",
+        "Shut up",
+        "Be quiet",
+        "Turn off"
+      ]
     },
     {
-      "name": "WordOfDay",
+      "name": "WordOfTheDay",
       "samples": [
         "What is the word of the day",
-        "what tell me a new word",
-        "teach me a word",
-        "tell me a word",
-        "say a new word",
-        "tell me a phrase",
-        "what is today's word",
-        "what is today's phrase",
-        "say a sentence",
-        "say the word in a sentence",
-        "give me a word",
-        "what's new today"
+        "Tell me the word of the day",
+        "Today's word of the day",
+        "Word of the day",
+        "Tell me the word of the day in {Language}",
+        "What is the {Language} word of the day",
+        "{Language} word today",
+        "{Language} word of the day",
+        "Say the {Language} word"
       ],
-      "slots": []
+      "slots": [
+        {
+          "name": "Language",
+          "type": "LanguageName",
+          "samples": [
+            "{Language}",
+            "Use {Language}",
+            "Tell me {Language}",
+            "{Language} word of the day"
+          ]
+        }
+      ]
     }
   ],
   "types": [
     {
-      "name": "learning_language",
+      "name": "LanguageName",
       "values": [
         {
           "id": null,
           "name": {
             "value": "Spanish",
             "synonyms": [
-              "Espanol"
+              "Espanol",
+              "Latin American Spanish",
+              "Mexican"
             ]
           }
         },
         {
           "id": null,
           "name": {
-            "value": "Arabic",
+            "value": "Chinese",
             "synonyms": [
-              "Farsi"
+              "Mandarin"
             ]
           }
         }
       ]
     }
-  ]
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-WordOfTheDay.IntentSlot-Language",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What language would you like to hear?"
+        },
+        {
+          "type": "PlainText",
+          "value": "Please choose a language"
+        },
+        {
+          "type": "PlainText",
+          "value": "Specify a language "
+        },
+        {
+          "type": "PlainText",
+          "value": "Which language do you prefer"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "WordOfTheDay",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "Language",
+            "type": "LanguageName",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-WordOfTheDay.IntentSlot-Language"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
