@@ -5,9 +5,10 @@ import os
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('wotd')
 
+
 def lambda_handler(event, context):
     wotd = table.query(
-        KeyConditionExpression=Key('language').eq('spanish') & Key('id').gt(0),
+        KeyConditionExpression=Key('language').eq(event["request"]["intent"]["slots"]["Language"]["value"].lower()) & Key('id').gt(0),
         FilterExpression=Attr('isActive').eq(True)
     )
     print(wotd['Items'])
