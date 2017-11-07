@@ -6,6 +6,12 @@ the allows people to learn a new foreign language word each day.
 Details about this project are contained in the [guidebook](guidebook/guidebook.md)
 and should be considered mandatory reading prior to contributing to this project.
 
+# Lambda versions
+Each Lambda version of a function gets its own ARN.
+In production you make a skill and snapshot a working version and point to that. Have another version for testing.
+The test one should always point to ```$LATEST``` and then when its fully tested you snapshot it, and update your production skill with the new ARN.
+Hopefully this can all be done as part of the build process but if not, these are the steps to do it manually.
+
 # Prerequisites
 * Working [VirtualBox](https://www.virtualbox.org/) installation
 * Working [Vagrant](https://www.vagrantup.com/) installation
