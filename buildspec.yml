@@ -1,0 +1,11 @@
+
+version: 0.2
+phases:
+  install:
+    commands:
+      - aws cloudformation package --template-file samTemplate.yaml --s3-bucket chuck-e-test 
+                                   --output-template-file NewSamTemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - NewSamTemplate.yaml

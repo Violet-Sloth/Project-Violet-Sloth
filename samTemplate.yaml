@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Autodeply Test for Chuck-E
+Globals:
+  Function:
+    Runtime: python3.6
+    Timeout: 180
+    Role: arn:aws:iam::037083514056:role/alexaSkill
+Resources:
+    wotd-grabber:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: wotd-grabber.lambda_handler
+            CodeUri: ./auto-dep/wotd-grabber/wotd-grabber
+            Events:
+                 Type: Schedule
+                 Properties:
+                    Schedule: (0 7 * * ? *)
+
+    wotd-skill:
+        Type: AWS::Serverless::Function
+            Properties:
+                Handler: wotd-skill.lambda_handler
+                CodeUri: ./auto-dep/wotd-skill/wotd-skill.py
+                Events:
+                    AlexaSkillEvent:
+                        Type:AlexaSkill
+
+    WOTD-Test-Table:
+        Type: AWS::Serverless::SimpleTable
+            PrimaryKey:
+                Name: word
+                Type: string
+            ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
